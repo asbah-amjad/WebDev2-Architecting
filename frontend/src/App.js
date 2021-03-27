@@ -14,11 +14,10 @@ export const App = () => {
     useEffect(() => {
         console.info("Initializing SPA...");
         initializeContentSwitch(setRouteName);
-        setRouteName("home");
+        setRouteName("sandwichList");
     }, []);
 
     return <div>
-        <h2>{routeName}</h2>
         <Menu />
         {routes[routeName]}
     </div>;

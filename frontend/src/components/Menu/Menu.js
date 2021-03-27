@@ -1,13 +1,14 @@
 import {fireContentSwitchEvent} from "../../events/ContentSwitch";
 import styles from "./Menu.module.css";
 
+// The names are defined in routes.
 const menuItems = [
     {
-        "name": "home",
+        "name": "sandwichList",
         "display": "Sandwiches"
     },
     {
-        "name": "orders",
+        "name": "orderList",
         "display": "Orders"
     }
 ];
