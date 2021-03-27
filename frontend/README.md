@@ -2,7 +2,10 @@
 
 This directory is for the code of your group's frontend implementation.
 
+
 ## Docker
+
+When running in development mode it might be much easier to run it directly with `yarn build` and `yarn start`.
 
 ### Running the container
 
