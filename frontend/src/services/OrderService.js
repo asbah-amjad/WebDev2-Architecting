@@ -1,11 +1,11 @@
 import axios from "axios";
 import { getApiUrl } from "../settings";
 
-const baseUrl = "/sandwich";
+const baseUrl = "/order";
 
 const getListing = () => {
-    console.debug("Fetch a list of sandwiches.");
+    console.debug("Fetch a list of orders.");
     return axios.get(getApiUrl(baseUrl)).then(response => response.data);
 };
 
-export const SandwichService = { getListing };
+export const OrderService = { getListing };

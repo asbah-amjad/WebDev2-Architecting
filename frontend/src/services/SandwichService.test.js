@@ -1,6 +1,6 @@
 import axios from "axios";
 import { mockSandwichList } from "../mocks/sandwiches";
-import {SandwichService} from "./SandwichService";
+import { SandwichService } from "./SandwichService";
 
 jest.mock("axios");
 
