@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
+
+:root {
+    /* Color definitions, generated with http://colormind.io/. */
+    --color-ls: #F7F8F9;
+    --color-la: #81A6A9;
+    --color-main: #B13E3A;
+    --color-da: #B15C6A;
+    --color-ds: #261925;
+}
+
 body {
+    background-color: var(--color-ls);
     margin: 0;
+    font-family: 'New Tegomin', serif;
 }

@@ -1,4 +1,4 @@
-import {fireContentSwitchEvent} from "../../events/ContentSwitch";
+import { fireContentSwitchEvent } from "../../events/ContentSwitch";
 import styles from "./Menu.module.css";
 
 // The names are defined in routes.
@@ -29,6 +29,7 @@ export const Menu = () => {
                     ))
                 }
             </nav>
+            <button>Login</button>
         </div>
     );
 };

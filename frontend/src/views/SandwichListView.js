@@ -10,9 +10,9 @@ export const SandwichListView = () => {
     }, []);*/
 
     return (
-        <p>
+        <div>
             <h1>Sandwiches</h1>
             {JSON.stringify(sandwiches)}
-        </p>
+        </div>
     );
 };
