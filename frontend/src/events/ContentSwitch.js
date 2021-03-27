@@ -6,7 +6,7 @@ export const contentSwitchEventName = "switch-content";
  * @param {string} routeName defined in routes.js
  */
 export const fireContentSwitchEvent = (routeName) => {
-    const event = new Event(contentSwitchEventName, { detail: { routeName } });
+    const event = new CustomEvent(contentSwitchEventName, { detail: { routeName } });
     window.dispatchEvent(event);
 };
 
@@ -22,5 +22,4 @@ export const initializeContentSwitch = (setRouteName) => {
         console.info(`Swap content to "${newRouteName}"`);
         setRouteName(newRouteName);
     });
-    setRouteName("home");
 };
