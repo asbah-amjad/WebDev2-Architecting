@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Menu } from "./components/Menu/Menu";
 import { initializeContentSwitch } from "./events/ContentSwitch";
 import { routes } from "./routes";
 
@@ -17,6 +18,8 @@ export const App = () => {
     }, []);
 
     return <div>
+        <h2>{routeName}</h2>
+        <Menu />
         {routes[routeName]}
     </div>;
 };
