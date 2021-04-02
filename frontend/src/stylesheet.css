@@ -7,10 +7,20 @@
     --color-main: #B13E3A;
     --color-da: #B15C6A;
     --color-ds: #261925;
+
+    /* Paddings, margins etc... */
+    --default-border: 1px solid var(--color-la);
+    --default-border-radius: 1rem;
+    --default-margin: 1rem;
+    --default-padding: 1rem;
 }
 
 body {
     background-color: var(--color-ls);
     margin: 0;
     font-family: 'New Tegomin', serif;
+}
+
+main {
+    margin: 0 5%;
 }

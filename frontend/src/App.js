@@ -17,8 +17,10 @@ export const App = () => {
         setRouteName("sandwichList");
     }, []);
 
-    return <div>
-        <Menu />
-        {routes[routeName]}
-    </div>;
+    return (
+        <div>
+            <Menu />
+            <main>{routes[routeName]}</main>
+        </div>
+    );
 };
