@@ -8,3 +8,23 @@
 .container > h2 {
     margin: 0;
 }
+
+.StatusBar {
+    border: 2px solid var(--color-ds);
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.StatusBar > * {
+    border: 1px solid var(--color-ds);
+    width: 100%;
+    text-align: center;
+}
+
+.CurrentStatus {
+    background-color: var(--color-ds);
+    color: var(--color-ls);
+}
