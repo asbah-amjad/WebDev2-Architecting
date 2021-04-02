@@ -8,6 +8,8 @@
     --color-da: #B15C6A;
     --color-ds: #261925;
 
+    --main-font: 'New Tegomin', serif;
+
     /* Paddings, margins etc... */
     --default-border: 1px solid var(--color-la);
     --default-border-radius: 1rem;
@@ -18,7 +20,7 @@
 body {
     background-color: var(--color-ls);
     margin: 0;
-    font-family: 'New Tegomin', serif;
+    font-family: var(--main-font);
 }
 
 main {

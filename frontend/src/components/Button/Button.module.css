@@ -1,0 +1,10 @@
+.button {
+    background-color: var(--color-ds);
+    color: var(--color-ls);
+
+    border: none;
+    border-radius: var(--default-border-radius);
+    font-size: 1rem;
+    font-family: var(--main-font);
+    padding: calc(var(--default-padding) / 2) var(--default-padding);
+}
