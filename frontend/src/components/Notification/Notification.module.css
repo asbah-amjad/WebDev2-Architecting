@@ -1,5 +1,7 @@
 .container {
     border-radius: var(--default-border-radius);
+    display: flex;
+    justify-content: space-between;
     margin: var(--default-margin);
     padding: var(--default-padding);
 }
@@ -7,6 +9,13 @@
 .container > p {
     margin: 0;
     padding: 0;
+}
+
+.CloseButton {
+    border: none;
+    border-radius: var(--default-border-radius);
+    background: var(--color-ls);
+    padding: calc(var(--default-padding) / 4) var(--default-padding);
 }
 
 .info {

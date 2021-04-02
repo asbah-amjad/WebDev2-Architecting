@@ -8,13 +8,20 @@ export const Notification = () => {
         text: "",
     });
 
+    const handleCloseNotification = () => {
+        setNotification({...notification, text: ""})
+    }
+
     useEffect(() => {
         initializeNotificationEvent(setNotification);
     }, []);
 
     if (notification.text) {
         return (
-            <div className={[styles.container, styles[notification.level]].join(" ")}><p>{notification.text}</p></div>
+            <div className={[styles.container, styles[notification.level]].join(" ")}>
+                <p>{notification.text}</p>
+                <button onClick={handleCloseNotification} className={styles.CloseButton}>close</button>
+            </div>
         );
     }
     return null;
