@@ -14,7 +14,7 @@ const successStatuses = ["ordered", "inQueue", "ready", "received"];
 
 const StatusBar = ({ status }) => {
     if (status === "failed") {
-        return <small className={styles.FailStatus}>{status}</small>;
+        return <p className={styles.FailedStatus}>{status}</p>;
     }
     return (
         <ul className={styles.StatusBar}>

@@ -7,6 +7,7 @@
     --color-main: #B13E3A;
     --color-da: #B15C6A;
     --color-ds: #261925;
+    --color-red: #c8390a;
 
     --main-font: 'New Tegomin', serif;
 
@@ -34,7 +35,7 @@ button:hover {
 }
 
 main {
-    margin: 0 5%;
+    margin: 0 5% 5% 5%;
 }
 
 ul {
