@@ -1,0 +1,10 @@
+.container {
+    background-color: var(--color-la);
+    border-radius: var(--default-border-radius);
+    color: var(--color-ds);
+    padding: var(--default-padding);
+}
+
+.container > h2 {
+    margin: 0;
+}
