@@ -5,7 +5,7 @@ export const contentSwitchEventName = "switch-content";
  *
  * @param {string} routeName defined in routes.js
  */
-export const fireContentSwitchEvent = (routeName) => {
+export const fireContentSwitchEvent = async (routeName) => {
     const event = new CustomEvent(contentSwitchEventName, { detail: { routeName } });
     window.dispatchEvent(event);
 };

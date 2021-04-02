@@ -1,0 +1,14 @@
+.container {
+    border-radius: var(--default-border-radius);
+    margin: var(--default-margin);
+    padding: var(--default-padding);
+}
+
+.container > p {
+    margin: 0;
+    padding: 0;
+}
+
+.info {
+    background-color: lightgreen;
+}

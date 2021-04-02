@@ -1,10 +1,12 @@
 import { Button } from "../components/Button/Button";
-import {fireContentSwitchEvent} from "../events/ContentSwitch";
+import { fireContentSwitchEvent } from "../events/ContentSwitch";
+import { fireNotificationEvent } from "../events/NotificationEvent";
 
 export const OrderPreview = () => {
     const handleConfirmOrder = () => {
         console.info("Order confirmed");
         fireContentSwitchEvent("orderList");
+        fireNotificationEvent("Order received, We are now preparing your order.");
     };
 
     return (

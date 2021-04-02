@@ -10,5 +10,5 @@ export const OrderListView = () => {
         OrderService.getListing().then(setOrders);
     }, []);*/
 
-    return <p><h1>Orders</h1>{JSON.stringify(orders)}</p>;
+    return <div><h1>Orders</h1>{JSON.stringify(orders)}</div>;
 };

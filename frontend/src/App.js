@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Menu } from "./components/Menu/Menu";
+import {Notification} from "./components/Notification/Notification";
 import { initializeContentSwitch } from "./events/ContentSwitch";
 import { routes } from "./routes";
 
@@ -20,7 +21,10 @@ export const App = () => {
     return (
         <div>
             <Menu />
-            <main>{routes[routeName]}</main>
+            <main>
+                <Notification />
+                {routes[routeName]}
+            </main>
         </div>
     );
 };
