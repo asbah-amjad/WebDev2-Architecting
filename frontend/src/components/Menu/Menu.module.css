@@ -2,6 +2,7 @@
     background-color: var(--color-ds);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
 
@@ -12,5 +13,9 @@
 }
 
 .container > nav > button {
-    height: 2.5rem;
+    background: none;
+    border: none;
+    color: var(--color-ls);
+
+    padding: var(--default-padding);
 }
