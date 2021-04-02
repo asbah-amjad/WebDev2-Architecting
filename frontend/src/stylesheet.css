@@ -23,6 +23,11 @@ body {
     font-family: var(--main-font);
 }
 
+button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 main {
     margin: 0 5%;
 }
