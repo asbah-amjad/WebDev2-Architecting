@@ -1,4 +1,9 @@
+import express from 'express';
+import mongoose from 'mongoose';
+
 import OrderMessage from '../models/orderMessage.js';
+
+const router = express.Router();
 
 export const getOrder = async (req,res) => {
     try{
@@ -24,14 +29,18 @@ export const getOrderById = async (req, res) => {
 }
 
 export const addOrder = async (req,res) => {
-    const {id, sandwitchId, status} = req.body;
-
-    const newOrder = new OrderMessage({id, sandwitchId, status});
+   
+    const newOrder = new OrderMessage({
+        orderId: req.body.orderId, 
+        sandwitchId: req.body.sandwitchId,
+        status: req.body.status
+    });
     try{
         await newOrder.save();
-
         res.status(200).json(newOrder);
     } catch(error){
         res.status(400).json({ message: error.message });
     }
 }
+
+export default router;

@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
@@ -9,8 +8,11 @@ const app = express();
 
 app.use('/order', orderRoutes);
 
+app.use(express.json());
+app.use(express.urlencoded());
+/*
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
-app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))*/
 app.use(cors());
 
 const CONNECTION_URL = 'mongodb+srv://asbah:asbah156@cluster0.fwf42.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';

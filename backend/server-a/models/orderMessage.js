@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const orderSchema = mongoose.Schema({
-    id: Number,
+    orderId: Number,
     sandwitchId: Number,
     status: {
         type: String,
