@@ -1,3 +1,5 @@
+import {SESSION_STORAGE_KEYS} from "../settings";
+
 export const contentSwitchEventName = "switch-content";
 
 /**
@@ -7,6 +9,7 @@ export const contentSwitchEventName = "switch-content";
  */
 export const fireContentSwitchEvent = async (routeName) => {
     const event = new CustomEvent(contentSwitchEventName, { detail: { routeName } });
+    sessionStorage.setItem(SESSION_STORAGE_KEYS.lastRoute, routeName);
     window.dispatchEvent(event);
 };
 

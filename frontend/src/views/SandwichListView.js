@@ -21,7 +21,6 @@ export const SandwichListView = () => {
         SandwichService.getListing().then(setSandwiches).catch(() => console.warn("'GET /sandwich' not integrated."));
     }, []);
 
-    console.log(sandwiches)
     return (
         <div>
             <h1>Sandwiches</h1>

@@ -12,5 +12,6 @@ export const getApiUrl = (url, queryParams= {}) => {
 };
 
 export const SESSION_STORAGE_KEYS = {
-    orderPreview: "orderPreview"
+    lastRoute: "lastRoute",
+    orderPreview: "orderPreview",
 };

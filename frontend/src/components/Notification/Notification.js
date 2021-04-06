@@ -9,8 +9,8 @@ export const Notification = () => {
     });
 
     const handleCloseNotification = () => {
-        setNotification({...notification, text: ""})
-    }
+        setNotification({...notification, text: ""});
+    };
 
     useEffect(() => {
         initializeNotificationEvent(setNotification);

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Menu } from "./components/Menu/Menu";
-import { Notification } from "./components/Notification/Notification";
-import { initializeContentSwitch } from "./events/ContentSwitch";
-import { routes } from "./routes";
+import React, {useEffect, useState} from "react";
+import {Menu} from "./components/Menu/Menu";
+import {Notification} from "./components/Notification/Notification";
+import {initializeContentSwitch} from "./events/ContentSwitch";
+import {routes} from "./routes";
+import {SESSION_STORAGE_KEYS} from "./settings";
 
 /**
  * The root component for the frontend application.
@@ -15,14 +16,20 @@ export const App = () => {
     useEffect(() => {
         console.info("Initializing SPA...");
         initializeContentSwitch(setRouteName);
-        setRouteName("sandwichList");
+        const lastRoute = sessionStorage.getItem(SESSION_STORAGE_KEYS.lastRoute);
+        if (lastRoute) {
+            console.debug(`Restoring view: ${lastRoute}`);
+            setRouteName(lastRoute);
+        } else {
+            setRouteName("sandwichList");
+        }
     }, []);
 
     return (
         <div>
-            <Menu />
+            <Menu/>
             <main>
-                <Notification />
+                <Notification/>
                 {routes[routeName]}
             </main>
         </div>
