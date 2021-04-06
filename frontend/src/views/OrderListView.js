@@ -9,9 +9,9 @@ export const OrderListView = () => {
     const currentOrders = orders.filter(({ status }) => !["received", "failed"].includes(status));
     const pastOrders = orders.filter(({ status }) => ["received", "failed"].includes(status));
 
-    /*useEffect(() => {
-        OrderService.getListing().then(setOrders);
-    }, []);*/
+    useEffect(() => {
+        OrderService.getListing().then(setOrders).catch(() => console.warn("'GET /order' not integrated."));
+    }, []);
 
     return (
         <div>

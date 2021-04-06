@@ -10,3 +10,7 @@ export const SERVER_HOST = process.env.NODE_ENV === "production" ? "https://" : 
 export const getApiUrl = (url, queryParams= {}) => {
     return `${SERVER_HOST}${url}`;
 };
+
+export const SESSION_STORAGE_KEYS = {
+    orderPreview: "orderPreview"
+};
