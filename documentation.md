@@ -2,6 +2,28 @@
 
 ## Front-end
 
+When in development mode
+
+```bash
+cd frontend
+yarn install
+yarn start
+```
+
+### Deployment
+
+The frontend is dockerized and can be run as follows, it to exposes port 80.
+
+```bash
+cd frontend
+docker build -t sandwich-frontend .
+docker run -p 80:80 sandwich-frontend
+```
+
+_At the moment it will always build another container, don't know how to rebuild one instead._
+
+### Application Structure
+
 The frontend is React _single-page application_. It only contains three views
 
 - sandwich listing
