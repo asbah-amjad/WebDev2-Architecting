@@ -19,3 +19,10 @@
 
     padding: var(--default-padding);
 }
+
+.AdminButton {
+    background-color: var(--color-ls);
+    color: var(--color-ds);
+    font-weight: bold;
+    margin: var(--default-padding);
+}

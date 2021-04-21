@@ -29,7 +29,7 @@ export const Menu = () => {
                     ))
                 }
             </nav>
-            <button onClick={handleClick} name="admin">Admins</button>
+            <button onClick={handleClick} name="admin" className={styles.AdminButton}>ADMINS</button>
         </div>
     );
 };
