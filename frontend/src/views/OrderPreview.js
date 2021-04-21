@@ -6,11 +6,11 @@ import {OrderService} from "../services/OrderService";
 import {SESSION_STORAGE_KEYS} from "../settings";
 
 export const OrderPreview = () => {
-    const [sandwich, setSandwich] = useState();
+    const [sandwich, setSandwich] = useState({toppings: []});
 
     const handleConfirmOrder = () => {
         console.info("Order confirmed");
-        OrderService.createOrder().catch(() => console.warn("'/order' endpoint not integrated")).finally(() => {
+        OrderService.createOrder(sandwich._id).catch(() => console.warn("'/order' endpoint not integrated")).finally(() => {
             fireContentSwitchEvent("orderList");
             fireNotificationEvent("Order received, We are now preparing your order.");
         });

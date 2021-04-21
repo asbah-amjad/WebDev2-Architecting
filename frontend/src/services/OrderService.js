@@ -10,7 +10,7 @@ const getListing = () => {
 
 const createOrder = (sandwichId) => {
     console.debug("Create a new order.");
-    return axios.post(getApiUrl(baseUrl), { sandwichId }).then(response => response.data);
+    return axios.post(getApiUrl(baseUrl), { sandwichId, status: "ordered"}).then(response => response.data);
 };
 
 export const OrderService = { createOrder, getListing };

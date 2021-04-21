@@ -1,10 +1,10 @@
 import styles from "./Order.module.css";
 
-export const Order = ({ id, sandwichId, status }) => {
+export const Order = ({ _id, sandwichId, date, status }) => {
     return (
         <div className={styles.container}>
             <h2>NAME NOT DEFINED</h2>
-            <small>TIMESTAMP NOT DEFINED</small>
+            <small>{date}</small>
             <StatusBar status={status} />
         </div>
     );
