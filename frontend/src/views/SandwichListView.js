@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {Sandwich} from "../components/Sandwich/Sandwich";
+import { NotificationLevel } from "../enums";
 import {fireContentSwitchEvent} from "../events/ContentSwitch";
+import { fireNotificationEvent } from "../events/NotificationEvent";
 import { mockSandwichList } from "../mocks/sandwiches";
 import { SandwichService } from "../services/SandwichService";
 import {SESSION_STORAGE_KEYS} from "../settings";
@@ -12,9 +14,13 @@ export const SandwichListView = () => {
     const handleOrder = (event) => {
         const sandwichId = event.target.dataset.sandwichId;
         console.info(`User selected sandwich: ${sandwichId}`);
-        const sandwich = sandwiches.find(({id}) => id.toString() === sandwichId);
-        sessionStorage.setItem(SESSION_STORAGE_KEYS.orderPreview, JSON.stringify(sandwich));
-        fireContentSwitchEvent("orderPreview");
+        const sandwich = sandwiches.find(({_id}) => _id.toString() === sandwichId);
+        if (sandwich) {
+            sessionStorage.setItem(SESSION_STORAGE_KEYS.orderPreview, JSON.stringify(sandwich));
+            fireContentSwitchEvent("orderPreview");
+        } else {
+            fireNotificationEvent("Failed to start order!", NotificationLevel.ERROR);
+        }
     };
 
     useEffect(() => {
@@ -33,7 +39,7 @@ export const SandwichListView = () => {
 const SandwichList = ({ sandwiches, onOrder } ) => {
     return (
         <div className={styles.SandwichList}>
-            {sandwiches.map(data => <Sandwich key={data.id} {...data} onOrder={onOrder} />)}
+            {sandwiches.map(data => <Sandwich key={data._id} {...data} onOrder={onOrder} />)}
         </div>
     );
 };

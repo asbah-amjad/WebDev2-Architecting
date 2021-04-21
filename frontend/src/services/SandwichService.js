@@ -8,4 +8,8 @@ const getListing = () => {
     return axios.get(getApiUrl(baseUrl)).then(response => response.data);
 };
 
-export const SandwichService = { getListing };
+const create = (data) => {
+    return axios.post(getApiUrl(baseUrl), data).then(response => response.data) ;
+};
+
+export const SandwichService = { getListing, create };

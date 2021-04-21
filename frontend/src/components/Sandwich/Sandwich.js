@@ -1,14 +1,14 @@
 import { Button } from "../Button/Button";
 import styles from "./Sandwich.module.css";
 
-export const Sandwich = ({id, name, toppings, breadType, onOrder}) => {
+export const Sandwich = ({_id, name, toppings, breadType, onOrder}) => {
     return (
         <div className={styles.container}>
             <h2>{name}</h2>
             <p>Bread type: {breadType}</p>
             <hr />
             <ToppingList toppings={toppings}/>
-            <Button onClick={onOrder} data-sandwich-id={id} text="Order" className={styles.OrderButton}/>
+            <Button onClick={onOrder} data-sandwich-id={_id} text="Order" className={styles.OrderButton}/>
         </div>
     );
 };

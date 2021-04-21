@@ -6,8 +6,8 @@ const router = express.Router();
 // const sandwichGenerationQueue = "sandwichGenerationQueue";
 
 const sandwichService = require("../services/sandwich.js");
-const testData = require('../data/sandwich');
-sandwichService.resetSandwich(testData)
+//const testData = require('../data/sandwich');
+//sandwichService.resetSandwich(testData)
 /* GET sandwich by id. */
 router.get("/:sandwichId", async function (req, res) {
     const sandwichId = req.params.sandwichId;
