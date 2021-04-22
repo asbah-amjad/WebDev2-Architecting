@@ -61,15 +61,18 @@ services:
   # A set of needed Docker instructions like 'image:' are shown
   # below, groups should set their values. Groups are free to
   # CRUD this set of instructions as they see fit.
-  # server-b:
-  # image:
-  # depends_on:
-  # command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
-  # build:
-  #   dockerfile:
-  #   context:
-  # expose:
-  # networks:
+  server-b:
+    depends_on:
+      - rabbitmq
+      - server-a
+    command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
+    build:
+      dockerfile: Dockerfile
+      context: ./backend/server-b
+    ports:
+      - 9000:8000
+    networks:
+      - backend
 
   # Your group might want to use a database to store some data
   # You can use any database you wish, PostgreSQL, MySQL and

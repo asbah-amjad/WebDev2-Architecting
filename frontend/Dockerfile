@@ -9,8 +9,9 @@
 
 FROM node:15.12.0-alpine as build
 # # https://mherman.org/blog/dockerizing-a-react-app/
-COPY . .
+COPY package.json .
 RUN yarn install
+COPY . .
 RUN yarn build
 
 

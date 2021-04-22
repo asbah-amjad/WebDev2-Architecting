@@ -10,3 +10,9 @@
 # This line fetches the Node Docker image from Docker Hub
 # which has been tagged "10"
 FROM node:10
+
+COPY package.json .
+RUN yarn install
+COPY . .
+
+EXPOSE 8000
