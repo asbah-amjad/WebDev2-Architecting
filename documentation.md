@@ -1,5 +1,22 @@
 # Documentation
 
+All parts of the software can be start with 
+
+```bash
+docker-compose up --build
+```
+
+The ports exposed are as follows:
+
+| Application   | Are   |
+| ------------- |------ |
+| Server A      | 8080  |
+| Server B      | 8000  |
+| Frontend      | 3000  | 
+
+The ports are quite popular for development environments.
+In production, they should run behind a reverse proxy using HTTPS port 443.
+
 ## Front-end
 
 When in development mode
@@ -12,7 +29,7 @@ yarn start
 
 ### Deployment
 
-The frontend is dockerized and can be run as follows, it to exposes port 80.
+The frontend is dockerized and can be run individually as follows, it to exposes port 80.
 
 ```bash
 cd frontend
@@ -20,7 +37,6 @@ docker build -t sandwich-frontend .
 docker run -p 80:80 sandwich-frontend
 ```
 
-_At the moment it will always build another container, don't know how to rebuild one instead._
 
 ### Application Structure
 

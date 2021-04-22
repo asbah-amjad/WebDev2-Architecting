@@ -70,7 +70,7 @@ services:
       dockerfile: Dockerfile
       context: ./backend/server-b
     ports:
-      - 9000:8000
+      - 8000:8000
     networks:
       - backend
 
