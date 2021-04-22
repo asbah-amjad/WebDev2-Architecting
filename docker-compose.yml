@@ -74,6 +74,17 @@ services:
     networks:
       - backend
 
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    ports:
+      - 3000:80
+    depends_on:
+      - server-a
+      - server-b
+
+
   # Your group might want to use a database to store some data
   # You can use any database you wish, PostgreSQL, MySQL and
   # MongoDB have rather good Docker documentation and examples.
