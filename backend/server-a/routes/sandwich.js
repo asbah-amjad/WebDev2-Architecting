@@ -13,10 +13,9 @@ router.get("/:sandwichId", async function (req, res) {
     const sandwichId = req.params.sandwichId;
     try {
         const sandwich = await sandwichService.getSandwichById(sandwichId);
-        res.json(sandwich);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(sandwich);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 });
 
@@ -24,14 +23,12 @@ router.get("/:sandwichId", async function (req, res) {
 router.get("/", async function (req, res) {
     try {
         const sandwiches = await sandwichService.getAllSandwiches();
-        res.json(sandwiches);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(sandwiches);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 });
-
-/* load test sandwich. */
+/*
 router.post("/reset", async function (req, res) {
 
     const newSandwich = testData;
@@ -42,7 +39,7 @@ router.post("/reset", async function (req, res) {
         console.log(err);
         res.json({ err });
     }
-});
+});*/
 
 /* POST update sandwich by id. */
 router.post("/:sandwichId", async function (req, res) {
@@ -50,10 +47,9 @@ router.post("/:sandwichId", async function (req, res) {
     const newSandwich = req.body;
     try {
         const sandwich = await sandwichService.updateSandwich(sandwichId, newSandwich);
-        res.json(sandwich);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(sandwich);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 });
 
@@ -63,10 +59,9 @@ router.post("/", async function (req, res) {
     const newSandwich = req.body;
     try {
         const sandwich = await sandwichService.addSandwich(newSandwich);
-        res.json(sandwich);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(sandwich);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
 });
 
@@ -76,10 +71,9 @@ router.delete("/:sandwichId", async function (req, res) {
     const sandwichId = req.params.sandwichId;
     try {
         const sandwich = await sandwichService.deleteSandwichById(sandwichId);
-        res.json(sandwich);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(sandwich);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 });
 

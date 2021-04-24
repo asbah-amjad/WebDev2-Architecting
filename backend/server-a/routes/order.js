@@ -12,11 +12,11 @@ router.get("/:orderId", async function (req, res) {
     const orderId = req.params.orderId;
     try {
         const order = await orderService.getOrderById(orderId);
-        res.json(order);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(order);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
+
 });
 
 /* DELETE order by id. */
@@ -24,10 +24,9 @@ router.delete("/:orderId", async function (req, res) {
     const orderId = req.params.orderId;
     try {
         const order = await orderService.deleteOrderById(orderId);
-        res.json(order);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(order);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 });
 
@@ -35,10 +34,9 @@ router.delete("/:orderId", async function (req, res) {
 router.get("/", async function (req, res) {
     try {
         const orders = await orderService.getAllOrders();
-        res.json(orders);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(orders);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 });
 
@@ -48,10 +46,9 @@ router.post("/", async function (req, res) {
     try {
         const order = await orderService.addOrder(newOrder);
         rabbitTaskSender.addTask(rabbitHost, orderGenerationQueue, order)
-        res.json(order);
-    } catch (err) {
-        console.log(err);
-        res.json({ err });
+        res.status(200).json(order);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
 });
 
