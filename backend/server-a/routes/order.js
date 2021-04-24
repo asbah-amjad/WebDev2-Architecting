@@ -47,7 +47,7 @@ router.post("/", async function (req, res) {
     const newOrder = req.body;
     try {
         const order = await orderService.addOrder(newOrder);
-        rabbitTaskSender.addTask(order, rabbitHost, orderGenerationQueue)
+        rabbitTaskSender.addTask(rabbitHost, orderGenerationQueue, order)
         res.json(order);
     } catch (err) {
         console.log(err);
