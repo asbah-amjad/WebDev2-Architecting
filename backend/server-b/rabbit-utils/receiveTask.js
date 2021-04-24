@@ -5,6 +5,7 @@
 'use strict';
 
 var amqp = require('amqplib');
+const { prepareOrder } = require("../app/prepareOrder");
 
 
 module.exports.getTask = function(rabbitHost, queueName){
@@ -22,12 +23,9 @@ module.exports.getTask = function(rabbitHost, queueName){
       function doWork(msg) {
         var body = msg.content.toString();
         console.log(" [x] Received '%s'", body);
-        var secs = body.split('.').length - 1;
-        //console.log(" [x] Task takes %d seconds", secs);
-        setTimeout(function() {
-          console.log(new Date(), " [x] Done");
-          ch.ack(msg);
-        }, 10000);
+        const order = JSON.parse(body)
+        ch.ack(msg) // tell the server a that order is in queue
+        prepareOrder(order)
       }
     });
   }).catch(console.warn);
