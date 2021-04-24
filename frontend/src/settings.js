@@ -1,4 +1,4 @@
-export const SERVER_HOST = process.env.NODE_ENV === "production" ? "https://" : "http://localhost:8080";
+export const SERVER_HOST = "http://localhost:8080";
 
 /**
  * Returns the full API url with query parameters and all.
