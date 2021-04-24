@@ -1,14 +1,15 @@
 import {OrderStatus} from "../../enums";
 import styles from "./Order.module.css";
 
-export const Order = ({_id, sandwichId, date, status}) => {
+export const Order = ({_id, sandwichId, date, status, sandwichList}) => {
+    const sandwich = sandwichList.find(s => s._id === sandwichId);
+
     return (
         <div className={styles.container}>
             <header>
-                <h2>NAME NOT DEFINED</h2>
+                <h2>{sandwich && sandwich.name}</h2>
+                <small>{date}</small>
             </header>
-
-            <small>{date}</small>
             <StatusBar status={status}/>
         </div>
     );
