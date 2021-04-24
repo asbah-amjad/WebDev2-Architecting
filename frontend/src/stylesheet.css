@@ -34,6 +34,23 @@ button:hover {
     text-decoration: underline;
 }
 
+form {
+    border: 1px solid var(--color-la);
+    border-radius: var(--default-border-radius);
+    display: grid;
+    grid-row-gap: 1rem;
+
+    padding: var(--default-padding);
+}
+
+form > h2 {
+    margin: 0;
+}
+
+input {
+    font-family: var(--main-font);
+}
+
 main {
     margin: 0 5% 5% 5%;
 }

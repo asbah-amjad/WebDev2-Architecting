@@ -1,4 +1,4 @@
-import {SandwichForm} from "../forms/SandwichForm";
+import {SandwichForm} from "../components/forms/SandwichForm";
 
 export const AdminView = () => {
 
@@ -6,7 +6,6 @@ export const AdminView = () => {
         <>
             <h1>Admin Stuff</h1>
 
-            <h2>Add Sandwich</h2>
             <SandwichForm />
         </>
     );

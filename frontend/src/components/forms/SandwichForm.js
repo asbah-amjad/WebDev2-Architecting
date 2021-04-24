@@ -1,8 +1,10 @@
 import {useState} from "react";
-import {Button} from "../components/Button/Button";
-import {BreadTypes, NotificationLevel} from "../enums";
-import {fireNotificationEvent} from "../events/NotificationEvent";
-import {SandwichService} from "../services/SandwichService";
+import {Button} from "../Button/Button";
+import {BreadTypes, NotificationLevel} from "../../enums";
+import {fireNotificationEvent} from "../../events/NotificationEvent";
+import {SandwichService} from "../../services/SandwichService";
+import {Form} from "../Form/Form";
+import {Input} from "../Input/Input";
 import styles from "./SandwichForm.module.css";
 
 export const SandwichForm = () => {
@@ -17,42 +19,55 @@ export const SandwichForm = () => {
         setData({...data, [event.target.name]: event.target.value});
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = () => {
         SandwichService.create(data)
             .then(() => fireNotificationEvent(`Sandwich "${data.name}" added.`))
             .catch(() => fireNotificationEvent("Failed to add sandwich", NotificationLevel.ERROR));
     };
 
     return (
-        <form onSubmit={handleSubmit} className={styles.form}>
-            <label>
-                Name*:
-                <input type="text" name="name" value={data.name} onChange={handleChange} required={true}/>
-            </label>
-            <label>
-                Price*:
-                <input type="number" name="price" value={data.price} onChange={handleChange} required={true}/>
-            </label>
+        <Form onSubmit={handleSubmit}>
+            <h2>Add sandwich</h2>
+            <Input type="text"
+                   name="name"
+                   form={data}
+                   onChange={handleChange}
+                   placeholder="Sandwich name"
+                   required={true}/>
+            <Input type="number"
+                   name="price"
+                   form={data}
+                   min={1}
+                   onChange={handleChange}
+                   placeholder="xx.xx"
+                   required={true}/>
             <ToppingFormElement data={data} setData={setData}/>
+            <BreadTypeFormElement onChange={handleChange}/>
+            <Button text="Add Sandwich"/>
+        </Form>
+    );
+};
+
+const BreadTypeFormElement = ({onChange}) => {
+    return (
+        <>
             <span>Bread type:</span>
-            <div>
+            <div className={styles.BreadTypeInput}>
                 {Object.entries(BreadTypes).map(([_, breadType]) => (
                     <label key={breadType}>
-                        <input type="radio" name="breadType" value={breadType} onChange={handleChange}/>
+                        <input type="radio" name="breadType" value={breadType} onChange={onChange}/>
                         {breadType}
                     </label>)
                 )}
             </div>
-            <Button text="Add Sandwich"/>
-        </form>
+        </>
     );
 };
 
 const ToppingFormElement = ({data, setData}) => {
     const handleChange = (event, index) => {
         const toppings = [...data.toppings];
-        toppings[index] = { ...toppings[index], name: event.target.value };
+        toppings[index] = {...toppings[index], name: event.target.value};
         setData({...data, toppings});
     };
 
@@ -68,19 +83,18 @@ const ToppingFormElement = ({data, setData}) => {
         setData({...data, toppings});
     };
 
-    console.log(data);
-
     return (
         <div>
             <label>Toppings:</label>
             {data.toppings.length > 0 ? (
-                <ul>
+                <ul className={styles.ToppingList}>
                     {data.toppings.map((topping, i) => (
                         <li key={topping.key}>
                             <input type="text"
                                    value={topping.name}
                                    name={`topping-${i}`}
-                                   onChange={(event) => handleChange(event, i)}/>
+                                   onChange={(event) => handleChange(event, i)}
+                                   placeholder="Topping name"/>
                             <button type="button" onClick={() => handleRemoveTopping(i)}>remove</button>
                         </li>
                     ))}
