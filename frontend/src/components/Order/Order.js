@@ -1,19 +1,22 @@
 import {OrderStatus} from "../../enums";
 import styles from "./Order.module.css";
 
-export const Order = ({ _id, sandwichId, date, status }) => {
+export const Order = ({_id, sandwichId, date, status}) => {
     return (
         <div className={styles.container}>
-            <h2>NAME NOT DEFINED</h2>
+            <header>
+                <h2>NAME NOT DEFINED</h2>
+            </header>
+
             <small>{date}</small>
-            <StatusBar status={status} />
+            <StatusBar status={status}/>
         </div>
     );
 };
 
 const successStatuses = Object.values(OrderStatus).filter(status => status !== OrderStatus.FAILED);
 
-const StatusBar = ({ status }) => {
+const StatusBar = ({status}) => {
     if (status === OrderStatus.FAILED) {
         return <p className={styles.FailedStatus}>{status}</p>;
     }

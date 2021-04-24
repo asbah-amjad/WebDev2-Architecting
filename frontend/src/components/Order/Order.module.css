@@ -6,7 +6,12 @@
     position: relative;
 }
 
-.container > h2 {
+.container > header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container > header > h2 {
     margin: 0;
 }
 

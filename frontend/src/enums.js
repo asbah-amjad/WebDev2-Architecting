@@ -1,8 +1,8 @@
 export const OrderStatus = {
     ORDERED: "ordered",
+    RECEIVED: "received",
     IN_QUEUE: "inQueue",
     READY: "ready",
-    RECEIVED: "received",
     FAILED: "failed"
 };
 

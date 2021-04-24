@@ -123,3 +123,4 @@ As we are not using websockets the server cannot tell us which order is ready, s
 4. Go to step 1.
 
 The `setTimeout` is used because `setInterval` can cause buggy calls if view is changed and it is not cleared properly.
+Low interval is used since, server B has low response time.
