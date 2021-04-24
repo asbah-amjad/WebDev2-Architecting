@@ -2,8 +2,9 @@ export const OrderStatus = {
     ORDERED: "ordered",
     IN_QUEUE: "inQueue",
     READY: "ready",
-    RECEIVED: "received"
-}
+    RECEIVED: "received",
+    FAILED: "failed"
+};
 
 export const BreadTypes = {
     OAT: "oat",

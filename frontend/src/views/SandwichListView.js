@@ -3,13 +3,12 @@ import {Sandwich} from "../components/Sandwich/Sandwich";
 import { NotificationLevel } from "../enums";
 import {fireContentSwitchEvent} from "../events/ContentSwitch";
 import { fireNotificationEvent } from "../events/NotificationEvent";
-import { mockSandwichList } from "../mocks/sandwiches";
 import { SandwichService } from "../services/SandwichService";
 import {SESSION_STORAGE_KEYS} from "../settings";
 import styles from "./SandwichListView.module.css";
 
 export const SandwichListView = () => {
-    const [sandwiches, setSandwiches] = useState(mockSandwichList);
+    const [sandwiches, setSandwiches] = useState([]);
 
     const handleOrder = (event) => {
         const sandwichId = event.target.dataset.sandwichId;
@@ -37,6 +36,9 @@ export const SandwichListView = () => {
 
 
 const SandwichList = ({ sandwiches, onOrder } ) => {
+    if (sandwiches.length === 0) {
+        return (<p>No sandwich available, add some in admin view.</p>);
+    }
     return (
         <div className={styles.SandwichList}>
             {sandwiches.map(data => <Sandwich key={data._id} {...data} onOrder={onOrder} />)}

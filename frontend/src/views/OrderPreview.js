@@ -4,9 +4,10 @@ import {fireContentSwitchEvent} from "../events/ContentSwitch";
 import {fireNotificationEvent} from "../events/NotificationEvent";
 import {OrderService} from "../services/OrderService";
 import {SESSION_STORAGE_KEYS} from "../settings";
+import {Money} from "../utils/money";
 
 export const OrderPreview = () => {
-    const [sandwich, setSandwich] = useState({toppings: []});
+    const [sandwich, setSandwich] = useState({price: null,toppings: []});
 
     const handleConfirmOrder = () => {
         console.info("Order confirmed");
@@ -33,11 +34,13 @@ export const OrderPreview = () => {
 
             <b>Sandwich</b>: {sandwich.name}<br/>
             <b>Bread type</b>: {sandwich.breadType}<br/>
-            <b>Toppings:</b> {sandwich.toppings.map(topping => topping.name).join(", ")}
+            <b>Toppings:</b> {sandwich.toppings.map(topping => topping.name).join(", ")}<br/>
 
             <h2>Payment Method</h2>
 
             <p>With cash, payment when receiving order.</p>
+
+            <h3>Total: {new Money(sandwich.price).toEuro()} <small>incl. tax 24%</small></h3>
 
             <Button onClick={handleConfirmOrder} text="Confirm order"/>
         </div>
