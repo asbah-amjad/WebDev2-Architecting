@@ -28,21 +28,20 @@ export const AdminView = () => {
         });
     };
 
-    const handleDeleteSandwich = (event) => {
-
-    };
-
     return (
         <>
             <h1>Admin Stuff</h1>
+
             <div>
                 <button name={AdminModes.LIST} onClick={handleClick}>List</button>
                 <button name={AdminModes.CREATE} onClick={handleClick}>Add</button>
             </div>
 
+            <hr />
+
             {
                 mode.name === AdminModes.LIST
-                    ? <SandwichAdminList onEdit={handleOpenEditMode} onDelete={handleDeleteSandwich} />
+                    ? <SandwichAdminList onEdit={handleOpenEditMode} />
                     : <SandwichForm {...mode.props}/>
             }
         </>
