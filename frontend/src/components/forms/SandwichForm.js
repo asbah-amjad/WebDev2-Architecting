@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Button} from "../Button/Button";
 import {BreadTypes, NotificationLevel} from "../../enums";
 import {fireNotificationEvent} from "../../events/NotificationEvent";
@@ -7,27 +7,46 @@ import {Form} from "../Form/Form";
 import {Input} from "../Input/Input";
 import styles from "./SandwichForm.module.css";
 
-export const SandwichForm = () => {
-    const [data, setData] = useState({
-        name: "",
-        toppings: [],
-        breadType: "",
-        price: ""
-    });
+const initialState = {
+    name: "",
+    toppings: [],
+    breadType: "",
+    price: ""
+};
+
+export const SandwichForm = ({sandwichId}) => {
+    const [data, setData] = useState(initialState);
 
     const handleChange = (event) => {
         setData({...data, [event.target.name]: event.target.value});
     };
 
     const handleSubmit = () => {
-        SandwichService.create(data)
-            .then(() => fireNotificationEvent(`Sandwich "${data.name}" added.`))
-            .catch(() => fireNotificationEvent("Failed to add sandwich", NotificationLevel.ERROR));
+        if (data._id) {
+            const {_id, ...submitData} = data;
+            SandwichService.update(_id, submitData)
+                .then(() => fireNotificationEvent("Sandwich updated."))
+                .catch(() => fireNotificationEvent("Failed to update sandwich.", NotificationLevel.ERROR));
+        } else {
+            SandwichService.create(data)
+                .then(() => fireNotificationEvent(`Sandwich "${data.name}" added.`))
+                .catch(() => fireNotificationEvent("Failed to add sandwich", NotificationLevel.ERROR));
+        }
     };
+
+    useEffect(() => {
+        if (sandwichId) {
+            SandwichService.retrieve(sandwichId)
+                .then(sandwich => setData(sandwich))
+                .catch(() => fireNotificationEvent("Failed to retrieve sandwich", NotificationLevel.ERROR));
+        } else {
+            setData(initialState);
+        }
+    }, [sandwichId]);
 
     return (
         <Form onSubmit={handleSubmit}>
-            <h2>Add sandwich</h2>
+            <h2>{sandwichId ? "Update" : "Add"} sandwich</h2>
             <Input type="text"
                    name="name"
                    form={data}
@@ -39,11 +58,11 @@ export const SandwichForm = () => {
                    form={data}
                    min={1}
                    onChange={handleChange}
-                   placeholder="xx.xx"
+                   placeholder="Price as xx.xx"
                    required={true}/>
             <ToppingFormElement data={data} setData={setData}/>
             <BreadTypeFormElement onChange={handleChange}/>
-            <Button text="Add Sandwich"/>
+            <Button text={`${sandwichId ? "Update" : "Add"} Sandwich`}/>
         </Form>
     );
 };
