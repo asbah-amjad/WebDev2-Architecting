@@ -1,3 +1,4 @@
+import {OrderStatus} from "../../enums";
 import styles from "./Order.module.css";
 
 export const Order = ({ _id, sandwichId, date, status }) => {
@@ -10,7 +11,7 @@ export const Order = ({ _id, sandwichId, date, status }) => {
     );
 };
 
-const successStatuses = ["ordered", "inQueue", "ready", "received"];
+const successStatuses = Object.values(OrderStatus);
 
 const StatusBar = ({ status }) => {
     if (status === "failed") {

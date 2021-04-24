@@ -3,11 +3,9 @@ const taskReceiver = require("./rabbit-utils/receiveTask");
 const settings = require("./settings");
 
 const app = express()
-const PORT = 8000
-const RABBIT_HOST = "rabbitmq:5672"
 
-taskReceiver.getTask(RABBIT_HOST, settings.orderGenerationQueue)
+taskReceiver.getTask(settings.rabbitHost, settings.orderGenerationQueue)
 
-app.listen(PORT, () => {
-    console.log(`Server B: http://localhost:${PORT}`)
+app.listen(settings.serverPort, () => {
+    console.log(`Server B: http://localhost:${settings.serverPort}`)
 })
