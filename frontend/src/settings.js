@@ -15,3 +15,6 @@ export const SESSION_STORAGE_KEYS = {
     lastRoute: "lastRoute",
     orderPreview: "orderPreview",
 };
+
+
+export const ORDER_POLL_INTERVAL = 2500;

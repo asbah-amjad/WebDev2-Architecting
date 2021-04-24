@@ -112,3 +112,14 @@ fireNotificationEvent(text, level)
 The communication to backend is split to Services that only return the data or a rejects the Promise.
 
 The structure is inspired by Angular, and was seen in Full Stack Open -course.
+
+### Polling for orders
+
+As we are not using websockets the server cannot tell us which order is ready, so we use polling to refresh the listing.
+
+1. Order listing received.
+2. Set timeout for polling.
+3. Poll the server.
+4. Go to step 1.
+
+The `setTimeout` is used because `setInterval` can cause buggy calls if view is changed and it is not cleared properly.
