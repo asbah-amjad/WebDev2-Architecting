@@ -1,6 +1,10 @@
 # Documentation
 
-All parts of the software can be start with 
+# Project Overview
+
+This is a simple Sandwich Order Web Application. User can order sandwich with the help of frontend. Order is placed and processed in the backend. This project is divided into three main parts for modularity and performance balancing i.e. frontend, server A and server B in the backend. The sandwich order application follows loosely coupled architecture. For asynchronous communication, mediator approach is used. Hence, the communication part is taken care of by RabbitMQ.
+
+All parts of the software can be start with
 
 ```bash
 docker-compose up --build
@@ -8,11 +12,11 @@ docker-compose up --build
 
 The ports exposed are as follows:
 
-| Application   | Are   |
-| ------------- |------ |
-| Server A      | 8080  |
-| Server B      | 8000  |
-| Frontend      | 3000  | 
+| Application | Are  |
+| ----------- | ---- |
+| Server A    | 8080 |
+| Server B    | 8000 |
+| Frontend    | 3000 |
 
 The ports are quite popular for development environments.
 In production, they should run behind a reverse proxy using HTTPS port 443.
@@ -37,7 +41,6 @@ docker build -t sandwich-frontend .
 docker run -p 80:80 sandwich-frontend
 ```
 
-
 ### Application Structure
 
 The frontend is React _single-page application_. It only contains three views
@@ -55,8 +58,7 @@ The notable summary of technologies are:
 - Axios for API communication
 - Jest for testing
 
-
-The structure of the application is 
+The structure of the application is
 
 ```
 // contains all components to be used
@@ -98,13 +100,13 @@ This is an experiment for switching views without Redux and React Contexts, and 
 After the listener is up the content is swapped by calling
 
 ```javascript
-fireContentSwitchEvent(viewName)
+fireContentSwitchEvent(viewName);
 ```
 
 The similar architecture is used with showing notifications.
 
 ```javascript
-fireNotificationEvent(text, level)
+fireNotificationEvent(text, level);
 ```
 
 ### Services
@@ -124,3 +126,53 @@ As we are not using websockets the server cannot tell us which order is ready, s
 
 The `setTimeout` is used because `setInterval` can cause buggy calls if view is changed and it is not cleared properly.
 Low interval is used since, server B has low response time.
+
+# Backend
+
+## Server A
+
+Server A runs on node.js and uses libraries such as express, mongoose, cors and amqplib. It is used for:
+
+- Implementation of Order API
+- Implementation of Sandwich API
+
+Here are the functionalities that Server A provides:
+
+1. Add a sandwich using the endpoint http://localhost:8080/sandwich/ with request POST. The
+   response will be sandwich object id in JSON format.
+2. Get a sandwich using the endpoint http://localhost:8080/sandwich/sandwichid with request
+   GET. The response will be the sandwich object in JSON format.
+3. Get a sandwich using the endpoint http://localhost:8080/sandwich with request GET. The
+   response will be an array of Sandwich objects in JSON format.
+4. Modify a sandwich with a POST request for the endpoint
+   http://localhost:8080/sandwich/sandwichid. It will return the sandwich object id in JSON
+   format.
+5. Delete a sandwich using the request DELETE with the endpoint
+   http://localhost:8080/sandwich/sandwichid. It will return the deleted Sandwichid.
+6. Server A also handles the orders. We can add orders using the same endpoint URL with
+   POST method http://localhost:8080/order/. It will return the newly created object type.
+7. This endpoint with the method request GET http://localhost:8080/order/:orderId, will return
+   the order details specific to an order id in JSON format.
+8. The same endpoint URL http://localhost:8080/order with GET method, will return the list of
+   order objects in an array format.
+9. It also uses the MongoDB database to store new sandwiches, as well as retrieve details of the
+   sandwiches from the database to show it at UI.
+10. It uses two Rabbitmq channels: order generation and order completion to communicate with
+    Server B. Order generation takes care of the order in the process from Server A to Server B. Order completion takes care of the order that is completed and sent from Server B to Server
+    A.
+
+## RabbitMQ
+
+RabbitMQ is a message brokering service and it is used to provide asynchronous communication between serve-a and server-b.
+
+## MongoDb
+
+In this project, MongoDb image is used in docker-compose.yml file. MongoDb runs in docker on port: 27017. Server-a saves the sandwich as well as the orders in mongodb for persistence purposes.
+
+## Server B
+
+Server B temporarily stores the details of orders. It tracks the order generation as well as completion. Whenever Server A generates some orders, Server B consumes that for processing. When the consumption, as well as processing, are done, it sends a signal using rabbitmq message channels about the completion and order is shown completed.
+
+## Conclusion
+
+This project helps us to understand web application architecture, how to dockerize your application, and message brokering services like Rabbitmq. This assignment helps us to co-operate with each other to come out of the existing loop-holes and continue the project without any hurdles.
