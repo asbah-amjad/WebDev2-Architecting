@@ -44,8 +44,8 @@ router.get("/", async function (req, res) {
 router.post("/", async function (req, res) {
     const newOrder = req.body;
     try {
-        const order = await orderService.addOrder(newOrder);
-        rabbitTaskSender.addTask(rabbitHost, orderGenerationQueue, order)
+        const order = await orderService.addOrder({ ...newOrder, status: "received" });
+        rabbitTaskSender.addTask(rabbitHost, orderGenerationQueue, { ...order, status: "inQueue" })
         res.status(200).json(order);
     } catch (error) {
         res.status(400).json({ message: error.message });
