@@ -65,7 +65,7 @@ services:
     depends_on:
       - rabbitmq
       - server-a
-    command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
+    command: sh -c "./utils/wait-for-it.sh && npm start"
     build:
       dockerfile: Dockerfile
       context: ./backend/server-b
@@ -73,6 +73,9 @@ services:
       - 8000:8000
     networks:
       - backend
+    environment:
+      WAITFORIT_HOST: rabbitmq
+      WAITFORIT_PORT: 5672
 
   frontend:
     build:

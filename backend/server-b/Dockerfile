@@ -15,4 +15,6 @@ COPY package.json .
 RUN yarn install
 COPY . .
 
+RUN chmod +x ./utils/wait-for-it.sh
+
 EXPOSE 8000
