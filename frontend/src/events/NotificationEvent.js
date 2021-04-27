@@ -1,6 +1,8 @@
+import {NotificationLevel} from "../enums";
+
 const notificationEventName = "event-notification";
 
-export const fireNotificationEvent = async (text, level = "info") => {
+export const fireNotificationEvent = async (text, level = NotificationLevel.INFO) => {
     const event = new CustomEvent(notificationEventName, { detail: { level, text } });
     window.dispatchEvent(event);
 };

@@ -7,7 +7,7 @@ export const Order = ({_id, sandwichId, date, status, sandwichList}) => {
     return (
         <div className={styles.container}>
             <header>
-                <h2>{sandwich && sandwich.name}</h2>
+                <h2>{(sandwich && sandwich.name) || "Sandwich Name Missing"}</h2>
                 <small>{date}</small>
             </header>
             <StatusBar status={status}/>

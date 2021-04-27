@@ -26,11 +26,11 @@ export const SandwichForm = ({sandwichId}) => {
             const {_id, ...submitData} = data;
             SandwichService.update(_id, submitData)
                 .then(() => fireNotificationEvent("Sandwich updated."))
-                .catch(() => fireNotificationEvent("Failed to update sandwich.", NotificationLevel.ERROR));
+                .catch((error) => fireNotificationEvent(error.response.data.message, NotificationLevel.ERROR));
         } else {
             SandwichService.create(data)
                 .then(() => fireNotificationEvent(`Sandwich "${data.name}" added.`))
-                .catch(() => fireNotificationEvent("Failed to add sandwich", NotificationLevel.ERROR));
+                .catch((error) => fireNotificationEvent(error.response.data.message, NotificationLevel.ERROR));
         }
     };
 
@@ -70,7 +70,7 @@ export const SandwichForm = ({sandwichId}) => {
 const BreadTypeFormElement = ({onChange}) => {
     return (
         <>
-            <span>Bread type:</span>
+            <span>Bread type*:</span>
             <div className={styles.BreadTypeInput}>
                 {Object.entries(BreadTypes).map(([_, breadType]) => (
                     <label key={breadType}>

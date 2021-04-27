@@ -21,3 +21,8 @@
 .info {
     background-color: lightgreen;
 }
+
+.error {
+    background: var(--color-red);
+    color: var(--color-ls);
+}
