@@ -3,7 +3,7 @@
 | Name                | Email                     | Student Number |
 | ------------------- | ------------------------- | -------------- |
 | Asbah Amjad Usmani  | asbahamjad.usmani@tuni.fi | H292962        |
-| Chi-Hao Lay         | chi-hao.lay@tuni.fi       | K424562
+| Chi-Hao Lay         | chi-hao.lay@tuni.fi       | K424562        | 
 
 The work was splitted so that Asbah did _Server A_ and Chi-Hao _Server B_ and _frontend_.
 
@@ -50,7 +50,7 @@ Automated tests are missing because since we are out of time. For manual testing
 
 ## Front-end
 
-When in development mode
+The final build doesn't auto-refresh so in development mode it can be run as
 
 ```bash
 cd frontend
@@ -157,6 +157,11 @@ As we are not using websockets the server cannot tell us which order is ready, s
 The `setTimeout` is used because `setInterval` can cause buggy calls if view is changed and it is not cleared properly.
 Low interval is used since, server B has low response time.
 
+### Routing 
+
+The _routing_ is done by putting component and router name mapping to `routers.js`. The `App.js` will then
+swap the content by route name if an `content-swich` event is dispatched.
+
 ### State Persistence
 
 Because of SPA application, it doesn't have dedicated urls to visit so
@@ -213,7 +218,7 @@ In this project, MongoDb image is used in docker-compose.yml file. MongoDb runs 
 
 ## Server B
 
-Server B runs on node.js and uses libraries express and amqplib and these dependecies are defined in the _package.json_ file. Server B temporarily stores the details of orders. It tracks the order generation as well as completion. Whenever Server A generates some orders, Server B consumes that for processing. When the consumption, as well as processing, are done, it sends a signal using rabbitmq message channels about the completion and order is shown completed.
+Server B runs on _node.js_ and uses libraries _express_ and _amqplib_ and these dependecies are defined in the _package.json_ file. Server B temporarily keeps the detail of orders in memory until 10 seconds have elapsed. It tracks the order generation as well as completion. Whenever Server A generates some orders, Server B consumes that for processing. When the consumption, as well as processing, are done, it sends a signal using rabbitmq message channels about the completion and order is shown completed.
 
 ### Structure
 
@@ -223,6 +228,19 @@ The server B doesn't follow any patterns particularly, it has only extended the 
 
 - separating action to `app/prepareOrder.js` allows extensibility if `doWork` -function in `rabbit-utils` is changed.
 - application (ports, hosts etc...) configuration is put to `settings.js`. The `enums.js` is a file to keep constants like in frontend, ideally with a file watcher that would synchronize them.
+
+## Learning
+
+### Chi-Hao Lay
+
+I was originally supposed to only do the frontend, although I was already very familiar with it, so I didn't learn much.
+I tried out different ways to stuff that I haven't before such as using custom events to communicate between components.
+
+I have learned a little more about queues when trying to do Server B, they were a kind of magic to me before.
+It was surprisingly simple since, the structure was mostly already in the repo.
+
+I learned about multi-stage builds in Docker and that you don't have to deploy microservices in separate servers but
+keep them in docker-compose and deploy to same server.
 
 ## Conclusion
 
