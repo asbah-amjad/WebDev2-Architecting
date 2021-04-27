@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
-const rabbitTaskSender = require("./rabbit-utils/sendTask")
 const rabbitTaskReceiver = require("./rabbit-utils/receiveTask")
 
 const app = express();
@@ -9,9 +8,6 @@ const app = express();
 // Init message broker
 const rabbitHost = "rabbitmq:5672";
 const orderCompletionQueue = "orderCompletionQueue";
-const orderGenerationQueue = "orderGenerationQueue";
-rabbitTaskReceiver.getTask(rabbitHost, orderCompletionQueue);
-
 
 const mongoHost = "mongodb:27017"
 const dbName = "sandwich"
@@ -52,3 +48,10 @@ server.on("error", (err) => {
 // Server starts listening
 server.listen(PORT, () => console.log(`Server-a: Listening on ports: ${PORT}`));
 
+const updateStatus = function (msgBody) {
+  console.log(" [x] Get with '%s'", msgBody);
+  var orderId = JSON.parse(msgBody)._id;
+  console.log(orderId);
+};
+
+rabbitTaskReceiver.getTask(rabbitHost, orderCompletionQueue, updateStatus);

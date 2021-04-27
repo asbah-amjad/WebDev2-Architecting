@@ -20,12 +20,16 @@ function addOrder(order) {
     .then((order) => order)
 }
 
-function updateOrder(order) {
-  const query = { "_id": order["_id"] }
-  const update = { status: order.status }
-  return Order.findOneAndUpdate(query, { $set: update })
-    .then((order) => order)
+function updateOrder(orderId, body) {
+  return new Promise(function (resolve, reject) {
+    Order.findOneAndUpdate({ _id: orderId }, body, { new: true }, function (err, order) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(body);
+    })
+  });
 }
-
 
 module.exports = { getAllOrders, getOrderById, deleteOrderById, addOrder, updateOrder }

@@ -4,29 +4,44 @@
 'use strict';
 
 var amqp = require('amqplib');
+var orderService = require('../services/order');
+const rabbitmq = "rabbitmq:5672";
+const orderCompletionQueue = "orderCompletionQueue";
 
-module.exports.getTask = function(rabbitHost, queueName){
-  amqp.connect('amqp://' + rabbitHost).then(function(conn) {
-    process.once('SIGINT', function() { conn.close(); });
-    return conn.createChannel().then(function(ch) {
-      var ok = ch.assertQueue(queueName, {durable: true});
-      ok = ok.then(function() { ch.prefetch(1); });
-      ok = ok.then(function() {
-        ch.consume(queueName, doWork, {noAck: false});
+module.exports.getTask = function (
+  rabbitHost = rabbitmq,
+  queueName = orderCompletionQueue) {
+  amqp.connect('amqp://' + rabbitHost).then(function (conn) {
+    process.once('SIGINT', function () { conn.close(); });
+    return conn.createChannel().then(function (ch) {
+      var ok = ch.assertQueue(queueName, { durable: true });
+      ok = ok.then(function () { ch.prefetch(1); });
+      ok = ok.then(function () {
+        ch.consume(queueName, doWork, { noAck: false });
         console.log(" [*] Waiting for messages. To exit press CTRL+C");
       });
       return ok;
 
       function doWork(msg) {
-        var body = order.content.toString();
-        console.log(" [x] Received '%s'", body);
+        var body = msg.content.toString();
+        console.log(" [x] Received in Server A: '%s'", body);
+
+        let old_order = JSON.parse(body);
+        orderService.updateOrder(old_order._id, { status: 'ready' })
+          .then(function (response) {
+            console.log("Order updated in Server A", response);
+          }).catch(function (error) {
+            console.log("Order update failed in Server A", error);
+          });
+
         var secs = body.split('.').length - 1;
         //console.log(" [x] Task takes %d seconds", secs);
-        setTimeout(function() {
+        setTimeout(function () {
           console.log(" [x] Done");
           ch.ack(msg);
-        }, secs * 1000);
+        }, secs * 3000);
       }
     });
   }).catch(console.warn);
-}
+};
+
