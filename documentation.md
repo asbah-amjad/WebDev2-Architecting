@@ -1,8 +1,9 @@
 # Documentation
 
-Name: Asbah Amjad Usmani
-Email: asbahamjad.usmani@tuni.fi
-Student Number: H292962
+| Name                | Email                     | Student Number |
+| ------------------- | ------------------------- | -------------- |
+| Asbah Amjad Usmani  | asbahamjad.usmani@tuni.fi | H292962        |
+| Chi-Hao Lay         | chi-hao.lay@tuni.fi       | K424562
 
 # Project Overview
 
@@ -16,7 +17,7 @@ docker-compose up --build
 
 The ports exposed are as follows:
 
-| Application | Are  |
+| Application | Port |
 | ----------- | ---- |
 | Server A    | 8080 |
 | Server B    | 8000 |
