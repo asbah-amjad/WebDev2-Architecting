@@ -7,7 +7,7 @@ module.exports.prepareOrder = (order) => {
     console.log("Preparing sandwich...")
     console.log("Warming up bread...")
     const preparationTime = settings.preparationTime * 1000
-    console.log(" [x] Task takes %d seconds", preparationTime);
+    console.log(" [x] Task takes %d seconds", settings.preparationTime);
     setTimeout(() => handleSandwichReady(order), preparationTime);
 }
 

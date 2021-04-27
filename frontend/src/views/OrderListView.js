@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Order} from "../components/Order/Order";
+import {OrderStatus} from "../enums";
 import { OrderService } from "../services/OrderService";
 import {SandwichService} from "../services/SandwichService";
 import {ORDER_POLL_INTERVAL} from "../settings";
@@ -8,10 +9,8 @@ import styles from "./OrderListView.module.css";
 export const OrderListView = () => {
     const [sandwichList, setSandwichList] = useState([]);
     const [orders, setOrders] = useState([]);
-    const currentOrders = orders.filter(({ status }) => !["received", "failed"].includes(status));
-    const pastOrders = orders.filter(({ status }) => ["received", "failed"].includes(status));
-
-
+    const currentOrders = orders.filter(({ status }) => ![OrderStatus.READY, OrderStatus.FAILED].includes(status));
+    const pastOrders = orders.filter(({ status }) => [OrderStatus.READY, OrderStatus.FAILED].includes(status));
 
     useEffect(() => {
         OrderService.getListing().then(setOrders).catch(() => console.warn("'GET /order' not integrated."));
