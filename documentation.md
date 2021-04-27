@@ -1,5 +1,9 @@
 # Documentation
 
+Name: Asbah Amjad Usmani
+Email: asbahamjad.usmani@tuni.fi
+Student Number: H292962
+
 # Project Overview
 
 This is a simple Sandwich Order Web Application. User can order sandwich with the help of frontend. Order is placed and processed in the backend. This project is divided into three main parts for modularity and performance balancing i.e. frontend, server A and server B in the backend. The sandwich order application follows loosely coupled architecture. For asynchronous communication, mediator approach is used. Hence, the communication part is taken care of by RabbitMQ.
@@ -131,7 +135,11 @@ Low interval is used since, server B has low response time.
 
 ## Server A
 
-Server A runs on node.js and uses libraries such as express, mongoose, cors and amqplib. It is used for:
+### Structure of Server A
+
+In Server A, different folders are created to refactor the code. Implementation of MongoDb connection and schema definitions are located in _models_ directory, _rabbit-utils_ is for sending and receiving order in the queues of RabbitMq, _routes_ is used for the routing of API requests, and required services are defined in the _services_ folder. Server A runs on node.js and uses libraries such as express, mongoose, cors and amqplib and these dependecies are defined in the _package.json_ file.
+
+### Implementation
 
 - Implementation of Order API
 - Implementation of Sandwich API
@@ -161,17 +169,23 @@ Here are the functionalities that Server A provides:
     Server B. Order generation takes care of the order in the process from Server A to Server B. Order completion takes care of the order that is completed and sent from Server B to Server
     A.
 
+More information about Server A is present in README.md file present in the directory of server A.
+
 ## RabbitMQ
 
-RabbitMQ is a message brokering service and it is used to provide asynchronous communication between serve-a and server-b.
+RabbitMQ is a message brokering service and it is used to provide asynchronous communication between serve-a and server-b. These tasks are handled in the _rabbit-utils_ directory.In this project, rabbitmq image `rabbitmq:3-management-alpine` is used and all the required configurations are present in the root directory of `docker-compose.yml` file.
 
 ## MongoDb
 
-In this project, MongoDb image is used in docker-compose.yml file. MongoDb runs in docker on port: 27017. Server-a saves the sandwich as well as the orders in mongodb for persistence purposes.
+In this project, MongoDb image is used in docker-compose.yml file. MongoDb runs in docker on port: 27017. Server A saves the sandwich as well as the orders in mongodb for persistence purposes.
 
 ## Server B
 
-Server B temporarily stores the details of orders. It tracks the order generation as well as completion. Whenever Server A generates some orders, Server B consumes that for processing. When the consumption, as well as processing, are done, it sends a signal using rabbitmq message channels about the completion and order is shown completed.
+Server B runs on node.js and uses libraries express and amqplib and these dependecies are defined in the _package.json_ file. Server B temporarily stores the details of orders. It tracks the order generation as well as completion. Whenever Server A generates some orders, Server B consumes that for processing. When the consumption, as well as processing, are done, it sends a signal using rabbitmq message channels about the completion and order is shown completed.
+
+### Structure
+
+Server B is dockerized just like other parts of application. In server B, _rabbit-utils_ is for sending and receiving order in the queues of RabbitMq and preparation of order is performed in the _app_ directory.
 
 ## Conclusion
 

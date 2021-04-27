@@ -6,8 +6,6 @@ This directory contains code and documentation of server A. Server A runs on:
 http://localhost:8080
 ```
 
-A starter docker file has been added, it has some comments to get you started. Server A is using mongodb and it also communicates with RabbitMQ. For communicating with RabbitMQ, there are many possible approaches. In the `rabbit-utils`-directory, in _receiveTask.js_ and _sendTask.js_ files, you can see simple examples of code that can be integrated into Swagger server stub's `Order`-controller. These have been directly copied from RabbitMQ examples, and can be improved a lot for this system.
-
 # RABBITMQ
 
 Server A uses two queue to communicate with Server B.
