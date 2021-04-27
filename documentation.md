@@ -5,11 +5,13 @@
 | Asbah Amjad Usmani  | asbahamjad.usmani@tuni.fi | H292962        |
 | Chi-Hao Lay         | chi-hao.lay@tuni.fi       | K424562
 
-# Project Overview
+The work was splitted so that Asbah did _Server A_ and Chi-Hao _Server B_ and _frontend_.
+
+##  Project Overview
 
 This is a simple Sandwich Order Web Application. User can order sandwich with the help of frontend. Order is placed and processed in the backend. This project is divided into three main parts for modularity and performance balancing i.e. frontend, server A and server B in the backend. The sandwich order application follows loosely coupled architecture. For asynchronous communication, mediator approach is used. Hence, the communication part is taken care of by RabbitMQ.
 
-All parts of the software can be start with
+All the parts of the software can be started with
 
 ```bash
 docker-compose up --build
@@ -26,6 +28,26 @@ The ports exposed are as follows:
 The ports are quite popular for development environments.
 In production, they should run behind a reverse proxy using HTTPS port 443.
 
+Queues used are
+
+- _orderGenerationQueue_, new orders are placed to this queue.
+- _orderCompletionQueue_, completed "ready" orders are put to this one.
+
+### Testing
+
+Automated tests are missing because since we are out of time. For manual testing:
+
+1. `docker-compose up --build`
+2. Wait for containers to start   
+3. Open `http://localhost:3000` in browser
+4. Click a button "ADMINS"
+5. Click "Add"
+6. Fill every field.
+7. Click "Sandwiches" in menu
+8. Click "Order"
+9. Click "Confirm"
+10. Wait for 10 seconds
+
 ## Front-end
 
 When in development mode
@@ -36,19 +58,9 @@ yarn install
 yarn start
 ```
 
-### Deployment
-
-The frontend is dockerized and can be run individually as follows, it to exposes port 80.
-
-```bash
-cd frontend
-docker build -t sandwich-frontend .
-docker run -p 80:80 sandwich-frontend
-```
-
 ### Application Structure
 
-The frontend is React _single-page application_. It only contains three views
+The frontend is React _single-page application_ it was created with _Create React App_. It only contains three views
 
 - sandwich listing
 - payment confirm
@@ -61,7 +73,7 @@ The notable summary of technologies are:
 - Vanilla JavaScript
 - CSS Modules for scoping the css
 - Axios for API communication
-- Jest for testing
+- ~~Jest for testing~~ it was supposed to be tested, but got to hurry
 
 The structure of the application is
 
@@ -114,6 +126,19 @@ The similar architecture is used with showing notifications.
 fireNotificationEvent(text, level);
 ```
 
+### CSS Architecture
+
+The styles follow a style of defining css constants as
+
+```
+:root {
+   --constant-name: value;
+}
+```
+
+which forms the global base values to be used anywhere as `var(--constant-name)`. The idea of 
+doing it like this is to allow overriding them and keeping them in one place while scoping the styles.
+
 ### Services
 
 The communication to backend is split to Services that only return the data or a rejects the Promise.
@@ -131,6 +156,12 @@ As we are not using websockets the server cannot tell us which order is ready, s
 
 The `setTimeout` is used because `setInterval` can cause buggy calls if view is changed and it is not cleared properly.
 Low interval is used since, server B has low response time.
+
+### State Persistence
+
+Because of SPA application, it doesn't have dedicated urls to visit so
+whenever view changes, it saves the route name to _session storage_.
+If page is reloaded, the application will read the view name and open the view.
 
 # Backend
 
@@ -187,6 +218,11 @@ Server B runs on node.js and uses libraries express and amqplib and these depend
 ### Structure
 
 Server B is dockerized just like other parts of application. In server B, _rabbit-utils_ is for sending and receiving order in the queues of RabbitMq and preparation of order is performed in the _app_ directory.
+
+The server B doesn't follow any patterns particularly, it has only extended the given files by adding:
+
+- separating action to `app/prepareOrder.js` allows extensibility if `doWork` -function in `rabbit-utils` is changed.
+- application (ports, hosts etc...) configuration is put to `settings.js`. The `enums.js` is a file to keep constants like in frontend, ideally with a file watcher that would synchronize them.
 
 ## Conclusion
 
