@@ -1,13 +1,13 @@
 # Documentation
 
-| Name                | Email                     | Student Number |
-| ------------------- | ------------------------- | -------------- |
-| Asbah Amjad Usmani  | asbahamjad.usmani@tuni.fi | H292962        |
-| Chi-Hao Lay         | chi-hao.lay@tuni.fi       | K424562        | 
+| Name               | Email                     | Student Number |
+| ------------------ | ------------------------- | -------------- |
+| Asbah Amjad Usmani | asbahamjad.usmani@tuni.fi | H292962        |
+| Chi-Hao Lay        | chi-hao.lay@tuni.fi       | K424562        |
 
 The work was splitted so that Asbah did _Server A_ and Chi-Hao _Server B_ and _frontend_.
 
-##  Project Overview
+## Project Overview
 
 This is a simple Sandwich Order Web Application. User can order sandwich with the help of frontend. Order is placed and processed in the backend. This project is divided into three main parts for modularity and performance balancing i.e. frontend, server A and server B in the backend. The sandwich order application follows loosely coupled architecture. For asynchronous communication, mediator approach is used. Hence, the communication part is taken care of by RabbitMQ.
 
@@ -38,7 +38,7 @@ Queues used are
 Automated tests are missing because since we are out of time. For manual testing:
 
 1. `docker-compose up --build`
-2. Wait for containers to start   
+2. Wait for containers to start
 3. Open `http://localhost:3000` in browser
 4. Click a button "ADMINS"
 5. Click "Add"
@@ -136,7 +136,7 @@ The styles follow a style of defining css constants as
 }
 ```
 
-which forms the global base values to be used anywhere as `var(--constant-name)`. The idea of 
+which forms the global base values to be used anywhere as `var(--constant-name)`. The idea of
 doing it like this is to allow overriding them and keeping them in one place while scoping the styles.
 
 ### Services
@@ -157,7 +157,7 @@ As we are not using websockets the server cannot tell us which order is ready, s
 The `setTimeout` is used because `setInterval` can cause buggy calls if view is changed and it is not cleared properly.
 Low interval is used since, server B has low response time.
 
-### Routing 
+### Routing
 
 The _routing_ is done by putting component and router name mapping to `routers.js`. The `App.js` will then
 swap the content by route name if an `content-swich` event is dispatched.
@@ -220,7 +220,7 @@ In this project, MongoDb image is used in docker-compose.yml file. MongoDb runs 
 
 Server B runs on _node.js_ and uses libraries _express_ and _amqplib_ and these dependecies are defined in the _package.json_ file. Server B temporarily keeps the detail of orders in memory until 10 seconds have elapsed. It tracks the order generation as well as completion. Whenever Server A generates some orders, Server B consumes that for processing. When the consumption, as well as processing, are done, it sends a signal using rabbitmq message channels about the completion and order is shown completed.
 
-### Structure
+### Structure of Server B
 
 Server B is dockerized just like other parts of application. In server B, _rabbit-utils_ is for sending and receiving order in the queues of RabbitMq and preparation of order is performed in the _app_ directory.
 
@@ -230,6 +230,12 @@ The server B doesn't follow any patterns particularly, it has only extended the 
 - application (ports, hosts etc...) configuration is put to `settings.js`. The `enums.js` is a file to keep constants like in frontend, ideally with a file watcher that would synchronize them.
 
 ## Learning
+
+### Asbah Amjad Usmani
+
+After reading project instruction, Server A seems to me a little complicated then other parts. So, to challenge myself I selected to do Server A part and I am glad in the end because I learn a lot of new technologies.
+
+I was familiar with MongoDb so I decided to use it. RabbitMq and docker were totally new things for me. I realized benefits of docker-compose with the help of this project.
 
 ### Chi-Hao Lay
 
